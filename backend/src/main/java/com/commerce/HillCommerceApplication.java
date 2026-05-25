@@ -1,0 +1,29 @@
+package com.commerce;
+
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.context.properties.ConfigurationPropertiesScan;
+import org.springframework.scheduling.annotation.EnableAsync;
+import org.springframework.scheduling.annotation.EnableScheduling;
+
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.core.incrementer.DefaultIdentifierGenerator;
+import org.mybatis.spring.annotation.MapperScan;
+import org.springframework.context.annotation.Bean;
+
+@SpringBootApplication
+@ConfigurationPropertiesScan
+@EnableScheduling
+@EnableAsync
+@MapperScan("com.commerce.modules.**.mapper")
+public class HillCommerceApplication {
+
+    public static void main(String[] args) {
+        SpringApplication.run(HillCommerceApplication.class, args);
+    }
+
+    @Bean
+    DefaultIdentifierGenerator identifierGenerator() {
+        return new DefaultIdentifierGenerator();
+    }
+}

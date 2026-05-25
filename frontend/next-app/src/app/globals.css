@@ -1,0 +1,262 @@
+@import "tailwindcss";
+
+:root {
+  --bg-page: #f8f9fa;
+  --bg-surface: #ffffff;
+  --bg-warm: #fff8f5;
+  --bg-admin: #ffffff;
+  --brand-primary: #ff6b6b;
+  --brand-secondary: #4ecdc4;
+  --brand-gradient: linear-gradient(135deg, #ff6b6b 0%, #ff8e53 100%);
+  --brand-gradient-alt: linear-gradient(135deg, #4ecdc4 0%, #44a3aa 100%);
+  --brand-deep: #e85555;
+  --price: #ff6b6b;
+  --price-strike: #adb5bd;
+  --text-primary: #2d3436;
+  --text-secondary: #636e72;
+  --text-hint: #b2bec3;
+  --text-inverse: #ffffff;
+  --border-light: #f1f3f5;
+  --border-normal: #e9ecef;
+  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.04);
+  --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.08);
+  --shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.12);
+  --font-body: "PingFang SC", "HarmonyOS Sans SC", "Microsoft YaHei", -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-price: "DIN Alternate", "PingFang SC", -apple-system, sans-serif;
+  --background: var(--bg-page);
+  --foreground: var(--text-primary);
+  --surface: var(--bg-warm);
+  --accent: var(--brand-primary);
+  --accent-strong: var(--price);
+}
+
+html,
+body {
+  background: var(--bg-page);
+  color: var(--foreground);
+  min-height: 100%;
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-body);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+button,
+a {
+  transition:
+    transform 200ms cubic-bezier(0.4, 0, 0.2, 1),
+    box-shadow 200ms cubic-bezier(0.4, 0, 0.2, 1),
+    border-color 200ms ease,
+    color 200ms ease,
+    background-color 200ms ease;
+}
+
+/* Smooth fade in animation */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+@keyframes pulse-soft {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.7; }
+}
+
+.animate-fade-in-up {
+  animation: fadeInUp 0.5s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+.animate-shimmer {
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+  background-size: 200% 100%;
+  animation: shimmer 2s infinite;
+}
+
+.animate-pulse-soft {
+  animation: pulse-soft 2s ease-in-out infinite;
+}
+
+@layer components {
+  .page-shell {
+    @apply min-h-screen px-3 py-4 md:px-4 md:py-5;
+  }
+
+  .page-stack {
+    @apply mx-auto flex max-w-[1200px] flex-col gap-4;
+  }
+
+  .surface-card {
+    background: var(--bg-surface);
+    border: 1px solid var(--border-light);
+    border-radius: 12px;
+    box-shadow: var(--shadow-sm);
+    transition: all 300ms cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .surface-card:hover {
+    box-shadow: var(--shadow-md);
+    transform: translateY(-2px);
+    border-color: var(--border-normal);
+  }
+
+  .surface-subtle {
+    background: var(--bg-warm);
+    border: 1px solid var(--border-light);
+    border-radius: 12px;
+  }
+
+  .chip-badge {
+    @apply inline-flex items-center rounded-full px-2.5 py-1 text-[11px] font-bold tracking-wide;
+    background: linear-gradient(135deg, #fff5f5 0%, #ffe0e0 100%);
+    color: var(--brand-deep);
+    border: 1px solid rgba(255, 107, 107, 0.2);
+  }
+
+  .chip-badge-secondary {
+    @apply inline-flex items-center rounded-full px-2.5 py-1 text-[11px] font-bold tracking-wide;
+    background: linear-gradient(135deg, #e8f8f7 0%, #d4f1ef 100%);
+    color: #2a9d8f;
+    border: 1px solid rgba(78, 205, 196, 0.2);
+  }
+
+  .btn-primary,
+  .btn-secondary,
+  .btn-ghost {
+    @apply inline-flex items-center justify-center gap-2 px-5 py-3 text-sm font-bold;
+    border-radius: 24px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .btn-primary {
+    background: var(--brand-gradient);
+    color: var(--text-inverse);
+    box-shadow: 0 4px 16px rgba(255, 107, 107, 0.3);
+  }
+
+  .btn-primary::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+    transition: left 500ms ease;
+  }
+
+  .btn-primary:hover::before {
+    left: 100%;
+  }
+
+  .btn-primary:active,
+  .btn-secondary:active,
+  .btn-ghost:active {
+    transform: scale(0.96);
+  }
+
+  .btn-primary:hover {
+    box-shadow: 0 6px 20px rgba(255, 107, 107, 0.4);
+    transform: translateY(-1px);
+  }
+
+  .btn-secondary {
+    background: var(--bg-surface);
+    border: 1.5px solid rgba(255, 107, 107, 0.25);
+    color: var(--brand-primary);
+  }
+
+  .btn-secondary:hover {
+    background: rgba(255, 107, 107, 0.05);
+    border-color: rgba(255, 107, 107, 0.4);
+  }
+
+  .btn-ghost {
+    color: var(--text-secondary);
+    background: transparent;
+  }
+
+  .btn-ghost:hover {
+    background: rgba(0, 0, 0, 0.04);
+    color: var(--text-primary);
+  }
+
+  .btn-disabled {
+    @apply cursor-not-allowed;
+    background: #e9ecef;
+    color: #adb5bd;
+    box-shadow: none;
+    transform: none !important;
+  }
+
+  /* Modern card with gradient border */
+  .gradient-border-card {
+    position: relative;
+    background: var(--bg-surface);
+    border-radius: 16px;
+    overflow: hidden;
+  }
+
+  .gradient-border-card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    padding: 1.5px;
+    border-radius: 16px;
+    background: linear-gradient(135deg, rgba(255, 107, 107, 0.3), rgba(78, 205, 196, 0.3));
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    pointer-events: none;
+  }
+
+  /* Glass morphism effect */
+  .glass {
+    background: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+  }
+
+  /* Price styling */
+  .price-tag {
+    font-family: var(--font-price);
+    font-weight: 700;
+    color: var(--price);
+    font-size: 1.1em;
+  }
+
+  .price-tag::before {
+    content: '¥';
+    font-size: 0.75em;
+    margin-right: 1px;
+  }
+
+  /* Section title with decorative line */
+  .section-title {
+    @apply flex items-center gap-3 text-lg font-bold;
+    color: var(--text-primary);
+  }
+
+  .section-title::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(90deg, var(--border-normal), transparent);
+  }
+}
